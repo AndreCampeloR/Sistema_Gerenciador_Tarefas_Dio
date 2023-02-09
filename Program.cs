@@ -1,12 +1,15 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Sistema_Gerenciador_Tarefas_Dio.Context;
+using Sistema_Gerenciador_Tarefas_Dio.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<OrganizadorContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao")));
+
+builder.Services.AddScoped<TarefaRepository>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
